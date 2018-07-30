@@ -1,7 +1,6 @@
 const fs = require('fs');
 const argv = require('./config/yargs');
 const payu = require('./config/payu');
-const plans = require('./config/plans');
 const axios = require('axios');
 
 let api = payu.sandbox;
@@ -12,7 +11,8 @@ let command = argv._[0];
 switch (command) {
 
 	case 'create':
-		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(plans.create),
+		const createPlan = require('./config/create');
+		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(createPlan.create),
 			{ headers:
 				{
 					'Authorization': 'Basic ' + authorization,
@@ -23,7 +23,7 @@ switch (command) {
 			.then(response => {
 				console.log(response.data);
 
-				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(plans.create), (err) => {
+				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(createPlan.create), (err) => {
 					if (err) throw err;
 					console.log('Se ha creado el plan ' + argv.plancode);
 				});
@@ -46,7 +46,8 @@ switch (command) {
 	break;
 
 	case 'update':
-		axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(plans.update),
+		const updatePlan = require('./config/update');
+		axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update),
 			{ headers:
 				{
 					'Authorization': 'Basic ' + authorization,
