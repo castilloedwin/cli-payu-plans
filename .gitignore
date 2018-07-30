@@ -1,0 +1,4 @@
+.DS_Store
+node_modules/
+plan-logs/
+package-lock.json

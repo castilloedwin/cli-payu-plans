@@ -1,0 +1,23 @@
+{
+  "name": "app-console-payulatam",
+  "version": "1.0.0",
+  "description": "Aplicación de consola para crear planes de suscripción en PayULatam",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "keywords": [
+    "PayU",
+    "Suscripciones",
+    "Pagos",
+    "Automáticos"
+  ],
+  "author": "Edwin Castillo",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "btoa": "^1.2.1",
+    "colors": "^1.3.1",
+    "yargs": "^12.0.1"
+  }
+}
