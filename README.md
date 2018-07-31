@@ -12,9 +12,11 @@ git clone https://github.com/castilloedwin/cli-payu-plans.git
 
 # Instalar Paquetes
 npm install
+```
 
 ## Modo de uso
 
+``` bash
 - Crear un nuevo plan
 # Debemos escribir el comando node app create seguido de las siguientes opciones:
 
@@ -26,6 +28,5 @@ npm install
 --paymentattemptsdelay or --pad # (optional) número de intentos, si no se especifica, por defecto será 2
 --value or -v # El valor de tu plan
 --currency or -c # Tipo de moneda
-
 ```
 <p align="center"><img src="./assets/images/create.png" /></p>
