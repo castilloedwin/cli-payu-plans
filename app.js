@@ -9,18 +9,13 @@ let authorization = Buffer.from(payu.api_login + ':' + payu.api_key).toString('b
 
 let command = argv._[0];
 
+let headers = { 'Authorization': 'Basic ' + authorization, 'Content-Type': 'application/json', 'Accept': 'application/json' };
+
 switch (command) {
 
 	case 'create':
 		const createPlan = require('./config/create');
-		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(createPlan.create),
-			{ headers:
-				{
-					'Authorization': 'Basic ' + authorization,
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'
-				}
-			})
+		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(createPlan.create), { headers })
 			.then(response => {
 
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(createPlan.create), (err) => {
@@ -35,14 +30,7 @@ switch (command) {
 	break;
 
 	case 'read':
-		axios.get(`${api}/rest/v4.9/plans/${argv.plancode}`,
-			{ headers:
-				{
-					'Authorization': 'Basic ' + authorization,
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'	
-				}
-			})
+		axios.get(`${api}/rest/v4.9/plans/${argv.plancode}`, { headers })
 			.then(response => {
 				console.log(response.data);
 			})
@@ -51,14 +39,7 @@ switch (command) {
 
 	case 'update':
 		const updatePlan = require('./config/update');
-		axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update),
-			{ headers:
-				{
-					'Authorization': 'Basic ' + authorization,
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'
-				}
-			})
+		axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers })
 			.then(response => {
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(updatePlan.update), (err) => {
 					if (err) throw err;
@@ -71,14 +52,7 @@ switch (command) {
 	break;
 
 	case 'delete':
-		axios.delete(`${api}/rest/v4.9/plans/${argv.plancode}`,
-			{ headers:
-				{
-					'Authorization': 'Basic ' + authorization,
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'
-				}
-			})
+		axios.delete(`${api}/rest/v4.9/plans/${argv.plancode}`, { headers })
 			.then(response => {
 				console.log(colors.green('El plan ' + argv.plancode + ' se ha eliminado correctamente'));
 			})

@@ -19,7 +19,7 @@ const argv = require('yargs')
 					intervalcount: {
 						demand: true,
 						alias: 'ic',
-						defalut: 1,
+						default: 1,
 						description: 'Enter the number of intervals here'
 					},
 					maxpaymentsallowed: {
