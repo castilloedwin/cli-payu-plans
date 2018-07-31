@@ -1,11 +1,13 @@
 const fs = require('fs');
+const path = require('path');
 const payu = require('./payu');
 const argv = require('./yargs');
-const planLog = require(`../plan-logs/${argv.plancode}.json`);
 
-if ( !fs.existsSync(`../plan-logs/${argv.plancode}.json`) ) {
-	return console.log('Este plan no existe');
+if (!fs.existsSync( path.join(__dirname, `../plan-logs/${argv.plancode}.json`))) {
+	throw Error('Este plan no existe');
 }
+
+const planLog = require(`../plan-logs/${argv.plancode}.json`);
 
 module.exports = {
 	update: {

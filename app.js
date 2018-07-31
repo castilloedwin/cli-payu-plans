@@ -2,6 +2,7 @@ const fs = require('fs');
 const argv = require('./config/yargs');
 const payu = require('./config/payu');
 const axios = require('axios');
+const colors = require('colors');
 
 let api = payu.sandbox;
 let authorization = Buffer.from(payu.api_login + ':' + payu.api_key).toString('base64');
@@ -21,14 +22,16 @@ switch (command) {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
 
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(createPlan.create), (err) => {
 					if (err) throw err;
-					console.log('Se ha creado el plan ' + argv.plancode);
+					console.log(colors.green('¡Se ha creado el plan ' + argv.plancode + ' con éxito!'));
+					console.log('___________________________________________');
+					console.log(response.data);
 				});
 
-			});
+			})
+			.catch(err => console.log(colors.red(err.response.data)));
 	break;
 
 	case 'read':
@@ -42,7 +45,8 @@ switch (command) {
 			})
 			.then(response => {
 				console.log(response.data);
-			});
+			})
+			.catch(err => console.log(colors.red(err.response.data)));
 	break;
 
 	case 'update':
@@ -56,8 +60,14 @@ switch (command) {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
-			});
+				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(updatePlan.update), (err) => {
+					if (err) throw err;
+					console.log(colors.green('¡Se ha actualizado el plan ' + argv.plancode + ' con éxito!'));
+					console.log('___________________________________________');
+					console.log(response.data);
+				});
+			})
+			.catch(err => console.log(colors.red(err.response.data)));
 	break;
 
 	case 'delete':
@@ -70,8 +80,9 @@ switch (command) {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
-			});
+				console.log(colors.green('El plan ' + argv.plancode + ' se ha eliminado correctamente'));
+			})
+			.catch(err => console.log(colors.red(err.response.data)));
 	break;
 
 	default:

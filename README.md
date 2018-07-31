@@ -14,4 +14,8 @@ git clone https://github.com/castilloedwin/cli-payu-plans.git
 npm install
 
 ## Modo de uso
-...
+
+- Crear un nuevo plan
+# Debemos escribir el comando node app create seguido de las siguientes opciones:
+
+--plancode or -p # Debes escribir el código de tu plan y no debe contener espacios
