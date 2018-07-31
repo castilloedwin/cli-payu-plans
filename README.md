@@ -1,4 +1,4 @@
-<p align="center"><img src="https://ecommerce.payulatam.com/logos/PayU_180x100_Paga.png"></p>
+<p align="center"><img src="https://ecommerce.payulatam.com/logos/PayU_107x51.png"></p>
 
 ## CLI para crear, leer, actualizar y eliminar planes de la API de PayULatam usando Node.js
 
