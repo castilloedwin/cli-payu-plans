@@ -18,6 +18,10 @@ switch (command) {
 		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(createPlan.create), { headers })
 			.then(response => {
 
+				if (!fs.existsSync('./plan-logs')) {
+					fs.mkdirSync('./plan-logs');
+				}
+
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(createPlan.create), (err) => {
 					if (err) throw err;
 					console.log(colors.green('¡Se ha creado el plan ' + argv.plancode + ' con éxito!'));
