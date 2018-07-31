@@ -18,15 +18,41 @@ npm install
 
 ``` bash
 - Crear un nuevo plan
-# Debemos escribir el comando node app create seguido de las siguientes opciones:
+# Debemos escribir el comando node app create, seguido de las siguientes opciones:
 
 --plancode or -p # Código de tu plan (no debe tener espacios).
---description or -d # Breve descripción de tu plan
---interval or -i # El tipo de intervalo de tu plan, ya sea por días, semanas, meses o años (DAY, WEEK, MONTH, YEAR)
---intervalcount or --ic # (optional) Cantidad de intervalos, si no se especifica, por defecto será 1
---maxpaymentsallowed or -m # (optional) máximos pagos permitidos, si no se especifica, por defecto será 12
---paymentattemptsdelay or --pad # (optional) número de intentos, si no se especifica, por defecto será 2
---value or -v # El valor de tu plan
---currency or -c # Tipo de moneda
+--description or -d # Breve descripción de tu plan.
+--interval or -i # El tipo de intervalo de tu plan, ya sea por días, semanas, meses o años (DAY, WEEK, MONTH, YEAR).
+--intervalcount or --ic # (optional) Cantidad de intervalos, si no se especifica, por defecto será 1.
+--maxpaymentsallowed or -m # (optional) máximos pagos permitidos, si no se especifica, por defecto será 12.
+--paymentattemptsdelay or --pad # (optional) número de intentos, si no se especifica, por defecto será 2.
+--value or -v # El valor de tu plan.
+--currency or -c # Tipo de moneda.
 ```
 <p align="center"><img src="./assets/images/create.png" /></p>
+
+``` bash
+- Leer un plan
+# Debemos escribir el comando node app read, seguido del código del plan:
+
+--plancode or -p # Código de tu plan (no debe tener espacios).
+```
+<p align="center"><img src="./assets/images/read.png" /></p>
+
+``` bash
+- Actualizar un plan
+# Debemos escribir el comando node app update, seguido del código del plan y de las opciones que se quieren modificar:
+
+--plancode or -p # Código de tu plan (no debe tener espacios).
+--description or -d # Breve descripción de tu plan.
+--value or -v # El valor de tu plan.
+```
+<p align="center"><img src="./assets/images/update.png" /></p>
+
+``` bash
+- Borrar plan
+# Debemos escribir el comando node app delete, seguido del código del plan:
+
+--plancode or -p # Código de tu plan (no debe tener espacios).
+```
+<p align="center"><img src="./assets/images/delete.png" /></p>
