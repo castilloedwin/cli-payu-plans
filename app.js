@@ -1,11 +1,11 @@
 const fs = require('fs');
 const argv = require('./config/yargs');
-const payu = require('./config/payu');
+const { sandbox, production } = require('./config/payu');
 const axios = require('axios');
 const colors = require('colors');
 
-let api = payu.sandbox;
-let authorization = Buffer.from(payu.api_login + ':' + payu.api_key).toString('base64');
+let api = sandbox.url;
+let authorization = Buffer.from(sandbox.api_login + ':' + sandbox.api_key).toString('base64');
 
 let command = argv._[0];
 
