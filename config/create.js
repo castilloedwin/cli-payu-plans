@@ -1,9 +1,9 @@
-const payu = require('./payu');
+const { sandbox, production } = require('./payu');
 const argv = require('./yargs');
 
 module.exports = {
 	create: {
-		accountId: payu.account_id,
+		accountId: sandbox.account_id,
 		planCode: argv.plancode,
 		description: argv.description,
 		interval: argv.interval, // DAY | WEEK | MONTH | YEAR
