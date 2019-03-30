@@ -42,8 +42,9 @@ switch (command) {
 	break;
 
 	case 'update':
-		const updatePlan = require('./config/update');
-		axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers })
+		try {
+			const updatePlan = require('./config/update');
+			axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers })
 			.then(response => {
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(updatePlan.update), (err) => {
 					if (err) throw err;
@@ -53,6 +54,10 @@ switch (command) {
 				});
 			})
 			.catch(err => console.log(colors.red(err.response.data)));
+		} catch (err) {
+			console.log(err.message);
+		}
+		
 	break;
 
 	case 'delete':
