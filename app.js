@@ -11,6 +11,15 @@ let command = argv._[0];
 
 let headers = { 'Authorization': 'Basic ' + authorization, 'Content-Type': 'application/json', 'Accept': 'application/json' };
 
+function writeFilePlan(planCode, planMethod, message, response) {
+	fs.writeFile(`./plan-logs/${planCode}.json`, JSON.stringify(planMethod), (err) => {
+		if (err) throw err;
+		console.log(colors.green(message));
+		console.log('___________________________________________');
+		console.log(response.data);
+	});
+}
+
 switch (command) {
 
 	case 'create':
@@ -22,12 +31,7 @@ switch (command) {
 					fs.mkdirSync('./plan-logs');
 				}
 
-				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(createPlan.create), (err) => {
-					if (err) throw err;
-					console.log(colors.green('¡Se ha creado el plan ' + argv.plancode + ' con éxito!'));
-					console.log('___________________________________________');
-					console.log(response.data);
-				});
+				writeFilePlan(argv.plancode, createPlan.create, '¡Se ha creado el plan ' + argv.plancode + ' con éxito!', response);
 
 			})
 			.catch(err => console.log(colors.red(err.response.data)));
@@ -59,12 +63,7 @@ switch (command) {
 
 				const dataUpdate = await axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers });
 
-				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(updatePlan.update), (err) => {
-					if (err) throw err;
-					console.log(colors.green('¡Se ha actualizado el plan ' + argv.plancode + ' con éxito!'));
-					console.log('___________________________________________');
-					console.log(dataUpdate.data);
-				});
+				writeFilePlan(argv.plancode, updatePlan.update, '¡Se ha actualizado el plan ' + argv.plancode + ' con éxito!', dataUpdate);
 
 			} catch(err) {
 				console.log(err);
