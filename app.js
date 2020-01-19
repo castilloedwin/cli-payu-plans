@@ -14,7 +14,7 @@ let headers = { 'Authorization': 'Basic ' + authorization, 'Content-Type': 'appl
 switch (command) {
 
 	case 'create':
-		const createPlan = require('./config/create');
+		const createPlan = require('./config/actions')(null);
 		axios.post(`${api}/rest/v4.9/plans`, JSON.stringify(createPlan.create), { headers })
 			.then(response => {
 
@@ -42,21 +42,35 @@ switch (command) {
 	break;
 
 	case 'update':
-		try {
-			const updatePlan = require('./config/update');
-			axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers })
-			.then(response => {
+		
+		if ( !fs.existsSync('./plan-logs') ) {
+			fs.mkdirSync('./plan-logs');
+		}
+
+		(async () => {
+
+			try {
+
+				const data = await axios.get(`${api}/rest/v4.9/plans/${argv.plancode}`, { headers });
+				fs.writeFileSync(`./plan-logs/${argv.plancode}.json`, JSON.stringify(data.data) );
+
+				const planLog = require(`./plan-logs/${argv.plancode}.json`);
+				const updatePlan = require('./config/actions')(planLog);
+
+				const dataUpdate = await axios.put(`${api}/rest/v4.9/plans/${argv.plancode}`, JSON.stringify(updatePlan.update), { headers });
+
 				fs.writeFile(`./plan-logs/${argv.plancode}.json`, JSON.stringify(updatePlan.update), (err) => {
 					if (err) throw err;
 					console.log(colors.green('¡Se ha actualizado el plan ' + argv.plancode + ' con éxito!'));
 					console.log('___________________________________________');
-					console.log(response.data);
+					console.log(dataUpdate.data);
 				});
-			})
-			.catch(err => console.log(colors.red(err.response.data)));
-		} catch (err) {
-			console.log(err.message);
-		}
+
+			} catch(err) {
+				console.log(err);
+			}
+
+		})();
 		
 	break;
 

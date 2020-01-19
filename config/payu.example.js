@@ -1,6 +1,6 @@
 /*
 	--------------------------------------------------------------------------------------------------------------
-	All the configuration data that you see currently, are only test (merchant_id, api_login, api_key, account_id)
+	All data setting up that you look at this, it's just testing (merchant_id, api_login, api_key, account_id)
 	--------------------------------------------------------------------------------------------------------------
 */
 
